@@ -67,7 +67,7 @@ public class MainController<allAvailableTypes> {
     }
 
     @Controller
-    public class TestController {
+    public class HomeController {
 
 
 
