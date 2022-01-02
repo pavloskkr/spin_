@@ -1,0 +1,10 @@
+com\example\spin_\SpiNApplication.class
+com\example\spin_\repositories\impl\TypeRepoImpl.class
+com\example\spin_\controllers\MainController.class
+com\example\spin_\model\Type.class
+com\example\spin_\controllers\MainController$TestController.class
+com\example\spin_\model\JoinedEstateTypes.class
+com\example\spin_\repositories\impl\EstateRepoImpl.class
+com\example\spin_\repositories\EstateRepository.class
+com\example\spin_\repositories\TypeRepository.class
+com\example\spin_\model\Estate.class

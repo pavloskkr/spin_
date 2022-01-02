@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SpiN - Property search service</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}" />
+    <link th:rel="stylesheet" th:href="@{/assets/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css}" />
+    <link th:rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body class="bg-light bg-gradient">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <a class="navbar-brand text-white" href="/index">SpiN</a>
+    <h2 class="mx-auto text-white">Property Listing Search</h2>
+</nav>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col col-lg-4">
+            <form th:action="@{/search}" method="get">
+                <div class="jumbotron">
+                    <p class="display-4">Filters</p>
+                    <div class="container">
+                        <div class="row">
+                            <label class="form-label m-auto">Price</label>
+                            <div class="col">
+                                <input type="number" min="10" class="form-control" id="priceFrom" name="priceFrom" placeholder="10,000">
+                            </div>
+                            <p class=" m-auto">to</p>
+                            <div class="col">
+                                <input type="number" min="10" max="10000000" class="form-control" id="priceTo" name="priceTo" placeholder="100,000">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row mt-2">
+                            <label class="form-label m-auto">Location</label>
+                            <div class="col">
+                                <select multiple class="selectpicker w-100" name="location" data-live-search-placeholder="i.e. Athens" data-live-search="true" required>
+                                    <option th:each="location : ${locations}" name="location" th:value="${location}" th:text="${location}" />
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row mt-2 mr-auto">
+                            <label class="form-label mt-auto mb-auto pr-3">Availability</label>
+                            <div class="col">
+                                <div class="form-check" name="availability" th:each="availabilityType: ${availabilityTypes}">
+                                    <input class="form-check-input" type="radio" name="availability" id="availabilityType" th:value="${availabilityType}" checked>
+                                    <label class="form-check-label" for="availabilityType" th:text="${availabilityType}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container w-100">
+                        <div class="row">
+                            <label class="form-label m-auto">Size</label>
+                            <div class="col">
+                                <input type="number" min="20" class="form-control" id="squareFrom" name="squareFrom" placeholder="20sqft">
+                            </div>
+                            <p class=" m-auto">to</p>
+                            <div class="col">
+                                <input type="number" min="20" max="10000" class="form-control" id="squareTo" name="squareTo" placeholder="100sqft">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row mt-2">
+                            <label class="form-label m-auto">Type</label>
+                            <div class="col">
+                                <select multiple class="selectpicker w-100" name="type" data-live-search-placeholder="i.e. Loft" data-live-search="true">
+                                    <option th:each="type : ${types}" name="type" th:value="${type}" th:text="${type}" />
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <p class="lead">
+                        <button class="btn btn-warning btn-lg" type="submit">Search</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <div class="jumbotron" id="listJumbotron">
+                <h1 class="display-4">Listed property</h1>
+                <hr class="my-4">
+                <div class="card w-100 mb-2" th:each="property: ${estates}">
+              <span>
+                <div class="card-body">
+                  <h5 class="card-title" id="property_list" th:text=" ' Type : ' + ${property.types}" />
+                  <h6 class="card-subtitle mb-2 text-muted" id="location" th:text=" 'Location : ' + ${property.location}" />
+                  <p class="card-text mb-2" th:text=" 'Available for : ' + ${property.availability}" />
+                  <p class="card-text mb-2" th:text=" 'Sq. Meters : ' + ${property.square_meters}" />
+                  <h4 class="card-text mb-2" th:text=" 'Price : ' + ${#numbers.formatDecimal(property.price, 0, 'COMMA', 0, 'POINT')} + '€'"/>
+                </div>
+                <hr class="my-4">
+            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9/popper.min.js}"></script>
+<script th:src="@{/assets/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/assets/bootstrap-select-1.13.14/dist/js/i18n/defaults-en_US.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</body>
+<footer class="page-footer font-small bg-dark fixed-bottom">
+    <div class="footer-copyright text-center text-white py-3">All rights reserved.
+        <a href="https://github.com/pavloskkr" target="_blank" rel="noopener noreferrer">Visit my Git</a>
+    </div>
+</footer>
+</html>
